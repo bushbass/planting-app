@@ -27,4 +27,20 @@ router.post('/', (req, res, next) => {
   })
 })
 
+// UPDATE PLANT
+router.put('/:id', (req, res, next) => {
+  Plant.findByIdAndUpdate(req.params.id, req.body, (err, plant) => {
+    if (err) return next(err)
+    res.json(plant)
+  })
+})
+
+// DELETE PLANT
+router.delete('/:id', (req, res, next) => {
+  Plant.findByIdAndRemove(req.params.id, (err, plant) => {
+    if (err) return next(err)
+    res.json(plant)
+  })
+})
+
 module.exports = router

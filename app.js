@@ -1,14 +1,20 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const mongoose = require('mongoose')
+      mongoose.Promise = global.Promise
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+mongoose.connect('mongodb://bushbass:bd3snd@ds239940.mlab.com:39940/plant-app')
+  .then( () => console.log('connection to database successful'))
+  .catch( err => console.error(err))
+
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 const plantsRouter = require("./routes/plants");
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
