@@ -1,18 +1,27 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = { plants: [] };
+  }
+
+  componentDidMount() {
+    fetch("/plants")
+      .then(response => response.json())
+      .then(plants => this.setState({ plants }));
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>Plants</h1>
+        {this.state.plants.map(plant => (
+          <div key={plant._id}>
+            {plant.plant_name} - {plant.plant_location}
+          </div>
+        ))}
       </div>
     );
   }
